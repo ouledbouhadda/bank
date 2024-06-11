@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BankPro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+</head>
+<body>
+<div class="app">
+    <header class="app-header">
+        <div class="app-header-logo">
+            <div class="logo">
+				<span class="logo-icon">
+					<img th:src="@{/img/logo.svg}" />
+				</span>
+                <h1 class="logo-title">
+                    <span>BankPro</span>
+                    <span>BankPro</span>
+                </h1>
+            </div>
+        </div>
+
+        <!-- Assuming 'client' is the model attribute for client data -->
+        <div class="app-header-actions">
+            <button class="user-profile">
+                <span th:text="${client.nomCli}">foulen elfouleni</span>
+                <span>
+					<img src="https://assets.codepen.io/285131/almeria-avatar.jpeg" />
+				</span>
+            </button>
+            <div class="app-header-actions-buttons">
+                <button class="icon-button large">
+                    <i class="ph-magnifying-glass"></i>
+                </button>
+                <button class="icon-button large">
+                    <i class="ph-bell"></i>
+                </button>
+            </div>
+        </div>
+        <div class="app-header-mobile">
+            <button class="icon-button large">
+                <i class="ph-list"></i>
+            </button>
+        </div>
+    </header>
+    <div class="app-body">
+        <!-- Client Specific Information -->
+        <div class="app-body-main-content">
+            <section class="service-section">
+                <!-- Logout Link -->
+                <a href="/logout">Logout</a>
+
+                <h2>Account Details</h2>
+                <div>
+                    <p><strong>Account Number:</strong> <span th:text="${compte.numCpt}"></span></p>
+                    <p><strong>Initial Balance:</strong> <span th:text="${#numbers.formatCurrency(compte.montantInit)}"></span></p>
+                    <p><strong>Current Balance:</strong> <span th:text="${#numbers.formatCurrency(compte.montantGlobal)}"></span></p>
+                </div>
+            </section>
+            <section class="transaction-history">
+                <h2>Transaction History</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+                    <tr th:each="transaction : ${operations}">
+                        <td th:text="${transaction.dateOp}"></td>
+                        <td th:text="${transaction.getType()}"></td>
+                        <td th:text="${transaction.montant}"></td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        <footer class="footer">
+            <h1>BankPro<small>©</small></h1>
+            <div>
+                <br />
+                All Rights Reserved 2024
+            </div>
+        </footer>
+    </div>
+</div>
+<script src='https://unpkg.com/phosphor-icons'></script>
+</body>
+</html>
